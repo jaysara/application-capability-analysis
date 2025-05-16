@@ -1,0 +1,22 @@
+Application Name,application_id,capability Name,capability_id
+Customer Portal,APP001,User Authentication,CAP001
+Customer Portal,APP001,Payment Processing,CAP002
+Customer Portal,APP001,Order Processing,CAP004
+Customer Portal,APP001,Notification Service,CAP006
+Payment Gateway,APP002,User Authentication,CAP001
+Payment Gateway,APP002,Data Storage,CAP008
+Inventory System,APP003,Data Storage,CAP008
+Inventory System,APP003,Notification Service,CAP006
+Order Management,APP004,User Authentication,CAP001
+Order Management,APP004,Inventory Management,CAP003
+Order Management,APP004,Payment Processing,CAP002
+Order Management,APP004,Notification Service,CAP006
+Analytics Dashboard,APP005,Data Analytics,CAP005
+Analytics Dashboard,APP005,Reporting,CAP009
+Notification Service,APP006,User Management,CAP010
+User Authentication,APP007,Data Storage,CAP008
+Reporting Engine,APP008,Data Storage,CAP008
+Reporting Engine,APP008,Data Analytics,CAP005
+Data Warehouse,APP009,Data Storage,CAP008
+API Gateway,APP010,User Authentication,CAP001
+API Gateway,APP010,API Management,CAP007 

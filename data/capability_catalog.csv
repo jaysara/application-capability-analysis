@@ -1,0 +1,11 @@
+capability_id,name,context,status,description,aliases,notes
+CAP001,User Authentication,Identity Management,Active,Provides secure user authentication and authorization services,Auth Service,SSO enabled
+CAP002,Payment Processing,Financial Services,Active,Handles payment transactions and processing,Payment Gateway,PCI compliant
+CAP003,Inventory Management,Supply Chain,Active,Manages product inventory and stock levels,Stock Control,Real-time updates
+CAP004,Order Processing,Supply Chain,Active,Handles order creation and management,Order System,Multi-channel support
+CAP005,Data Analytics,Business Intelligence,Active,Provides data analysis and reporting capabilities,Analytics Engine,Real-time processing
+CAP006,Notification Service,Communication,Active,Manages system notifications and alerts,Alert System,Multi-channel delivery
+CAP007,API Management,Integration,Active,Manages API lifecycle and security,API Gateway,Rate limiting enabled
+CAP008,Data Storage,Data Management,Active,Provides data storage and retrieval services,Storage Service,High availability
+CAP009,Reporting,Business Intelligence,Active,Generates business reports and analytics,Report Engine,Customizable templates
+CAP010,User Management,Identity Management,Active,Manages user profiles and permissions,User Directory,Role-based access 

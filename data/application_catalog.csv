@@ -1,0 +1,11 @@
+application_id,Application name,Type,Platform,Disposition,System architect,Delivery lead,service owner
+APP001,Customer Portal,Web Application,Cloud,Production,John Smith,Jane Doe,Alice Johnson
+APP002,Payment Gateway,Microservice,Cloud,Production,Robert Brown,Mike Wilson,Sarah Lee
+APP003,Inventory System,Legacy,On-Premise,Production,David Clark,Emily White,Tom Harris
+APP004,Order Management,Web Application,Cloud,Production,Lisa Anderson,Chris Martin,Karen Davis
+APP005,Analytics Dashboard,Web Application,Cloud,Development,Mark Taylor,Patricia Moore,James Wilson
+APP006,Notification Service,Microservice,Cloud,Production,Steve Rogers,Tony Stark,Natasha Romanoff
+APP007,User Authentication,Microservice,Cloud,Production,Bruce Banner,Peter Parker,Thor Odinson
+APP008,Reporting Engine,Legacy,On-Premise,Production,Clint Barton,Wanda Maximoff,Vision
+APP009,Data Warehouse,Database,On-Premise,Production,Scott Lang,Hope Van Dyne,Hank Pym
+APP010,API Gateway,Microservice,Cloud,Production,Stephen Strange,Wong,Ancient One 
