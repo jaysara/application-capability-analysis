@@ -10,11 +10,19 @@ class GeminiClient:
             raise ValueError("GOOGLE_API_KEY not found in environment variables")
         
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        # List available models
+        try:
+            models = [m for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+            if not models:
+                raise ValueError("No suitable models found")
+            # Use the first available model that supports generateContent
+            self.model = genai.GenerativeModel(models[0].name)
+        except Exception as e:
+            raise ValueError(f"Error initializing Gemini model: {str(e)}")
         
     async def get_response(self, prompt: str, context: str = None) -> str:
         """
-        Get a response from Gemini Flash 2.x model
+        Get a response from Gemini model
         
         Args:
             prompt (str): The user's question or prompt

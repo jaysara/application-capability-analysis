@@ -9,7 +9,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.data_processor import DataProcessor
-from llm_chat.gemini_client import GeminiClient
+from llm_chat.vertex_client import VertexClient
 
 app = FastAPI()
 
@@ -24,7 +24,7 @@ app.add_middleware(
 
 # Initialize components
 data_processor = DataProcessor()
-gemini_client = GeminiClient()
+vertex_client = VertexClient()
 
 class Query(BaseModel):
     question: str
@@ -39,8 +39,8 @@ async def analyze_data(query: Query):
         # Load all data
         app_catalog, cap_catalog, consumes_mapping, provides_mapping = data_processor.load_data()
         
-        # Get analysis from Gemini
-        response = await gemini_client.analyze_application_capability(
+        # Get analysis from Vertex AI
+        response = await vertex_client.analyze_application_capability(
             application_data=app_catalog,
             capability_data=cap_catalog,
             consumes_mapping=consumes_mapping,

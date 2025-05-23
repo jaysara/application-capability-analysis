@@ -1,9 +1,12 @@
 import pandas as pd
 from typing import Dict, List, Tuple
+import os
 
 class DataProcessor:
     def __init__(self, data_dir: str = "data"):
-        self.data_dir = data_dir
+        # Get the absolute path to the project root directory
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.data_dir = os.path.join(project_root, data_dir)
         
     def load_data(self) -> Tuple[Dict, Dict, Dict, Dict]:
         """
@@ -18,19 +21,19 @@ class DataProcessor:
         """
         try:
             # Load application catalog
-            app_catalog = pd.read_csv(f"{self.data_dir}/application_catalog.csv")
+            app_catalog = pd.read_csv(os.path.join(self.data_dir, "application_catalog.csv"))
             app_catalog_dict = app_catalog.to_dict('records')
             
             # Load capability catalog
-            cap_catalog = pd.read_csv(f"{self.data_dir}/capability_catalog.csv")
+            cap_catalog = pd.read_csv(os.path.join(self.data_dir, "capability_catalog.csv"))
             cap_catalog_dict = cap_catalog.to_dict('records')
             
             # Load consumes mapping
-            consumes_mapping = pd.read_csv(f"{self.data_dir}/application_consumes_capability_mapping.csv")
+            consumes_mapping = pd.read_csv(os.path.join(self.data_dir, "application_consumes_capability_mapping.csv"))
             consumes_dict = consumes_mapping.to_dict('records')
             
             # Load provides mapping
-            provides_mapping = pd.read_csv(f"{self.data_dir}/application_provides_capability_mapping.csv")
+            provides_mapping = pd.read_csv(os.path.join(self.data_dir, "application_provides_capability_mapping.csv"))
             provides_dict = provides_mapping.to_dict('records')
             
             return app_catalog_dict, cap_catalog_dict, consumes_dict, provides_dict
