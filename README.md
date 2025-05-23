@@ -1,101 +1,164 @@
 # Application-Capability Analysis System
 
-This system analyzes the relationships between applications and capabilities using CSV data files and Gemini Flash 2.x for natural language processing.
+This system analyzes relationships between applications and capabilities using Vertex AI for natural language processing and analysis.
 
-## Project Structure
+## Features
 
-- `mcp_client/` - Streamlit-based client application
-- `mcp_server/` - FastAPI-based server for data processing
-- `llm_chat/` - Gemini Flash 2.x integration
-- `data/` - Directory for CSV files
-- `utils/` - Utility functions for data processing
+- Natural language querying of application-capability relationships
+- Detailed analysis of application and capability dependencies
+- Interactive web interface for data exploration
+- RESTful API for programmatic access
+- Integration with Google Cloud Vertex AI for advanced analysis
+
+## Prerequisites
+
+- Python 3.9 or higher
+- Google Cloud account with Vertex AI API enabled
+- Google Cloud credentials (service account key or application default credentials)
 
 ## Setup
 
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd ai-mcp-cursor
+   ```
 
-2. Set up environment variables:
-Create a `.env` file with:
-```
-GOOGLE_API_KEY=your_gemini_api_key
-```
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-3. Place your CSV files in the `data/` directory:
-- application_catalog.csv
-- capability_catalog.csv
-- application_consumes_capability_mapping.csv
-- application_provides_capability_mapping.csv
+3. Install required packages:
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+4. Set up Google Cloud credentials:
+   - Option 1: Using service account key
+     ```bash
+     export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/service-account-key.json"
+     ```
+   - Option 2: Using gcloud CLI
+     ```bash
+     gcloud auth application-default login
+     ```
+
+5. Create a `.env` file in the project root:
+   ```
+   GOOGLE_CLOUD_PROJECT=your-project-id
+   GOOGLE_CLOUD_LOCATION=us-central1
+   ```
 
 ## Running the Application
 
 1. Start the server (in one terminal):
-```bash
-python mcp_server/server.py
-```
+   ```bash
+   source venv/bin/activate
+   cd mcp_server
+   python3 server.py
+   ```
+   The server will start on http://localhost:8000
 
 2. Start the client (in another terminal):
-```bash
-streamlit run mcp_client/app.py
+   ```bash
+   source venv/bin/activate
+   cd mcp_client
+   streamlit run app.py
+   ```
+   The client will be available at http://localhost:8501
+
+## Using the System
+
+### Natural Language Analysis
+
+The system now uses Vertex AI to provide natural language analysis of application-capability relationships. You can ask questions like:
+
+- "What capabilities does Application X provide?"
+- "Which applications consume the same capabilities as Application Y?"
+- "Tell me about the relationships between Application X and its capabilities"
+
+The system will automatically:
+1. Understand your question
+2. Use appropriate data tools to gather information
+3. Provide a comprehensive analysis
+
+### API Endpoints
+
+- `GET /`: Server status
+- `POST /analyze`: Natural language analysis of relationships
+- `GET /applications`: List all applications
+- `GET /capabilities`: List all capabilities
+- `GET /application/{application_id}`: Get application details
+- `GET /capability/{capability_id}`: Get capability details
+
+### Example API Usage
+
+```python
+import requests
+
+# Natural language analysis
+response = requests.post(
+    "http://localhost:8000/analyze",
+    json={"question": "What capabilities does Application X provide?"}
+)
+print(response.json())
+
+# Get application details
+response = requests.get("http://localhost:8000/application/APP001")
+print(response.json())
 ```
 
-The application will open in your web browser with three main sections:
-- Natural Language Query
-- Application Analysis
-- Capability Analysis
+## Data Structure
 
-## Sample Prompts
+The system uses four CSV files in the `data` directory:
 
-### 1. Application Analysis Questions
-- "Which applications consume the most capabilities?"
-- "List all cloud-based applications and their capabilities"
-- "What are all the capabilities consumed by the Customer Portal?"
-- "Which applications are managed by John Smith?"
-- "Show me all applications that consume the User Authentication capability"
+1. `application_catalog.csv`: Application information
+2. `capability_catalog.csv`: Capability information
+3. `application_consumes_capability_mapping.csv`: Application-capability consumption relationships
+4. `application_provides_capability_mapping.csv`: Application-capability provision relationships
 
-### 2. Capability Analysis Questions
-- "What capabilities are provided by cloud-based applications?"
-- "List all capabilities in the Identity Management context"
-- "Which capabilities are most commonly consumed across applications?"
-- "Show me all capabilities that are consumed by more than 2 applications"
-- "What are the capabilities provided by the Payment Gateway?"
+## Architecture
 
-### 3. Relationship Analysis Questions
-- "Find all applications that both provide and consume capabilities"
-- "Which applications have dependencies on the Data Storage capability?"
-- "Show me the relationship between Order Management and its consumed capabilities"
-- "What is the dependency chain for the Customer Portal?"
-- "Which capabilities are provided by on-premise applications?"
+The system consists of three main components:
 
-### 4. Platform and Type Analysis
-- "Compare the capabilities of cloud vs on-premise applications"
-- "What types of applications consume the most capabilities?"
-- "List all microservices and their provided capabilities"
-- "Show me the distribution of capabilities across different application types"
-- "Which legacy applications consume cloud-based capabilities?"
+1. **Data Processor** (`utils/data_processor.py`):
+   - Handles data loading and basic filtering
+   - Provides methods for querying relationships
 
-### 5. Team and Ownership Questions
-- "Who are the system architects for applications that provide authentication capabilities?"
-- "List all applications managed by each delivery lead"
-- "Show me the service owners for applications that consume payment processing"
-- "Which team members are responsible for the most critical capabilities?"
-- "What capabilities are managed by each service owner?"
+2. **Vertex AI Client** (`llm_chat/vertex_client.py`):
+   - Integrates with Google Cloud Vertex AI
+   - Provides natural language analysis
+   - Uses DataProcessor methods as tools for detailed analysis
 
-### 6. Business Context Questions
-- "What are all the capabilities related to Supply Chain?"
-- "Show me the relationships between Financial Services capabilities"
-- "List all capabilities that support Business Intelligence"
-- "What are the dependencies between Order Processing and other capabilities?"
-- "How do the Identity Management capabilities interact with other systems?"
+3. **Web Interface**:
+   - FastAPI server for API endpoints
+   - Streamlit client for interactive interface
 
-## Features
+## Troubleshooting
 
-- Analyze relationships between applications and capabilities
-- Natural language querying of the dataset
-- Visualization of application-capability relationships
-- Detailed analysis of application and capability attributes
-- Team and ownership analysis
-- Platform and type-based analysis
-- Business context analysis 
+1. If you see SSL-related warnings:
+   ```bash
+   xcode-select --install
+   pip install watchdog
+   ```
+
+2. If packages are not found, ensure you're in the virtual environment:
+   ```bash
+   source venv/bin/activate
+   ```
+
+3. If Vertex AI is not working:
+   - Verify your Google Cloud credentials
+   - Check that Vertex AI API is enabled
+   - Ensure your project ID and location are correct in `.env`
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request 
